@@ -1,0 +1,31 @@
+Options -Indexes 
+ErrorDocument 404 /404.php
+php_value date.timezone "Europe/Moscow"
+php_flag display_startup_errors on
+php_flag display_errors on
+php_value max_input_vars 10000
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !/bitrix/urlrewrite.php$
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^news/([0-9]+)/?$ /news/index.php?PAGEN_1=$1 [L,QSA]
+  RewriteRule ^news/detail/([0-9]+)/?$ /news/detail.php?CODE=$1 [L,QSA]
+</IfModule>
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive on
+  ExpiresByType image/jpeg "access plus 3 day"
+  ExpiresByType image/gif "access plus 3 day"
+  ExpiresByType image/png "access plus 3 day"
+  ExpiresByType text/css "access plus 3 day"
+  ExpiresByType application/javascript "access plus 3 day"  
+</IfModule>
